@@ -47,6 +47,7 @@ export const MenuForm = ({ data, closeEditModal }) => {
 
   const queryClient = useQueryClient();
 
+  //add menu item
   const createMenuItemMutation = useMutation(menuService.addMenuItem, {
     onSuccess: (data) => {
       if (data.data.data._id && data.data.status === 200) {
@@ -64,6 +65,7 @@ export const MenuForm = ({ data, closeEditModal }) => {
     },
   });
 
+  //edit menu item
   const editMenuItemMutation = useMutation(menuService.updateMenuItem, {
     onSuccess: (data) => {
       setIsLoading(false);
@@ -98,6 +100,7 @@ export const MenuForm = ({ data, closeEditModal }) => {
       },
     };
     if (data !== undefined) {
+      //edit
       try {
         setIsLoading(true);
         editMenuItemMutation.mutate({ id: data._id, data: reqBody });
@@ -106,6 +109,7 @@ export const MenuForm = ({ data, closeEditModal }) => {
         toast.error("Error while updating restaurant");
       }
     } else {
+      //add
       try {
         createMenuItemMutation.mutate({ ...reqBody });
         resetForm();
@@ -121,7 +125,7 @@ export const MenuForm = ({ data, closeEditModal }) => {
   }
 
   return (
-    <div className="menuFormContainer">
+    <div className={data !== undefined ? "" : "menuFormContainer"}>
       <Container>
         <section>
           <h1 className="text-secondary text-center mt-4 mb-4">
@@ -142,7 +146,12 @@ export const MenuForm = ({ data, closeEditModal }) => {
               calories: data?.nutritionalInfo?.calories || "",
               ingredients: data?.nutritionalInfo?.ingredients?.join(",") || "",
               category: data?.category || "",
-              availability: data?.availability === true ? "yes" : "no" || "",
+              availability:
+                data?.availability === true
+                  ? "yes"
+                  : data?.availability === false
+                  ? "no"
+                  : "",
               menuImage: null,
             }}
           >

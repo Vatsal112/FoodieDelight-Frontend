@@ -45,6 +45,7 @@ export const RestaurantForm = ({ data, closeEditModal }) => {
 
   const queryClient = useQueryClient();
 
+  //add a restaurant
   const createRestaurantMutation = useMutation(
     restaurantService.addRestaurant,
     {
@@ -65,6 +66,7 @@ export const RestaurantForm = ({ data, closeEditModal }) => {
     }
   );
 
+  //edit a  restaurant
   const editRestaurantMutation = useMutation(
     restaurantService.updateRestaurant,
     {
@@ -108,6 +110,7 @@ export const RestaurantForm = ({ data, closeEditModal }) => {
       },
     };
     if (data !== undefined) {
+      //edit
       try {
         setIsLoading(true);
         editRestaurantMutation.mutate({ id: data._id, data: reqBody });
@@ -117,6 +120,7 @@ export const RestaurantForm = ({ data, closeEditModal }) => {
         toast.error("Error while updating restaurant");
       }
     } else {
+      //add
       try {
         setIsLoading(true);
         createRestaurantMutation.mutate({ ...reqBody });
@@ -132,7 +136,7 @@ export const RestaurantForm = ({ data, closeEditModal }) => {
   }
 
   return (
-    <div className="restaurantMenuFormContainer">
+    <div className={data !== undefined ? "" : "restaurantMenuFormContainer"}>
       <Container>
         <section className="mb-4 mt-5">
           <h1 className="text-secondary text-center mt-4 mb-4">
