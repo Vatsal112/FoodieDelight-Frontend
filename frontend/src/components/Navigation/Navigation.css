@@ -1,0 +1,11 @@
+.navbar-brand {
+  font-weight: bolder;
+  font-size: 23px;
+}
+.nav-link {
+  font-size: 18px !important;
+  font-weight: 500 !important;
+}
+.navbarContainer {
+  position: relative;
+}

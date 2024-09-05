@@ -1,0 +1,7 @@
+.cursorPointer {
+  cursor: pointer;
+}
+.card {
+  max-height: 700px;
+  height: 700px;
+}
